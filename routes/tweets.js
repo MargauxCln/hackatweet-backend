@@ -41,9 +41,9 @@ router.post("/posting/:token", (req, res) => {
 /* GET all posted tweets */
 
 router.get('/', (req, res) => {
-    Tweet.find().then(data => {
+    Tweet.find().populate('users').then(data => {
       if (data) {
-        res.json({ result: true, data : data });
+        res.json({ result: true, data : data, user  });
       } else {
         res.json({ result: false, error: 'No tweet found' });
       }
