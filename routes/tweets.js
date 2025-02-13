@@ -39,9 +39,6 @@ router.post("/posting/:token", (req, res) => {
 
 
 /* GET all posted tweets */
-router.get("/posting/:token", (req, res) => {})
-
-
 
 router.get('/', (req, res) => {
     Tweet.find().then(data => {
