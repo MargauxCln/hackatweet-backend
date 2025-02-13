@@ -22,8 +22,7 @@ router.post("/posting/:token", (req, res) => {
       const newTweet = new Tweet({
         message: req.body.message,
         postTime: dayDate,
-        firstname: data.firstname,
-        username: data.username,
+        user: data._id,
       });
 
       newTweet.save().then((newDoc) => {
@@ -37,18 +36,18 @@ router.post("/posting/:token", (req, res) => {
   });
 });
 
-
 /* GET all posted tweets */
 
-router.get('/', (req, res) => {
-    Tweet.find().populate('users').then(data => {
+router.get("/", (req, res) => {
+  Tweet.find()
+    .populate("user", '-_id -password -token -__v')
+    .then((data) => {
       if (data) {
-        res.json({ result: true, data : data, user  });
+        res.json({ result: true, data: data });
       } else {
-        res.json({ result: false, error: 'No tweet found' });
+        res.json({ result: false, error: "No tweet found" });
       }
     });
-  });
-
+});
 
 module.exports = router;
